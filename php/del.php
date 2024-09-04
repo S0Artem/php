@@ -1,9 +1,8 @@
 <?php
+session_start();  // Запуск сессии
 
 $file = 'data.tsv';
-
 $homepage = file_get_contents($file);
-
 $lines = explode("\r\n", trim($homepage));
 
 $indificatorToDelete = $_POST['indificator'];
@@ -19,5 +18,6 @@ $filteredLines = del($lines, $indificatorToDelete);
 
 file_put_contents($file, implode("\r\n", $filteredLines));
 
-header('Location: ../php/index.php'); // Обновите путь к вашей главной странице
+// Перенаправляем обратно в admin.php, сессия сохранит данные
+header('Location: ../php/admin.php');  // Обновите путь к вашей главной странице
 exit;

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
-    <form name="feedback" action="./php/index.php" method="POST" >
+    <form name="feedback" action="./php/index.php" method="POST">
         <label>Ваше имя: <input type="text" name="name" pattern="[А-Я]{1}[а-я]+" required></label>
         <label>Ваш телефон: <input type="tel" name="tel" pattern="[7]{1}[0-9]{10}" required></label>
         <input type="submit" class="validateBtn" value='Отправить'>
     </form>
-
+    <form name="feedback" action="./php/admin.php" method="POST">
+        <label>Пароль: <input type="password" name="password"></label>
+        <input type="submit" class="validateBtn" value='Админка'>
+    </form>
 </body>
 
 </html>

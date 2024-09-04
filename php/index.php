@@ -24,35 +24,3 @@ else{
 }
 
 file_put_contents($file, $current); // записываем данные
-
-$homepage = file_get_contents($file); // считываем
-
-$lines = explode("\r\n", trim($homepage)); // Разбивает строку разделителем
-
-function createContactBlock($name, $tel, $indificator) {
-    if ($name === null || $tel === null || $indificator === null || trim($name) === '' || trim($tel) === '' || trim($indificator) === '') {
-        return 'неправильная запись<br><br>';
-    } else {
-        return 
-            '<form action="../php/del.php" method="post" style="margin: 0">' . 
-            '<input type="hidden" name="indificator" value="' . htmlspecialchars($indificator) . '">' . // Скрытое поле для indificator
-            htmlspecialchars($indificator) . 
-            " " . 
-            htmlspecialchars($name) . 
-            " " . 
-            htmlspecialchars($tel) .
-            " " . 
-            ' <button type="submit" name="submit_button" style="display: inline;">Нажмите меня</button></form><br>';
-    }
-}
-
-$contactBlocks = array_filter($lines, function($line) {
-    return !empty($line);
-});
-
-$contactBlocks = array_map(function($line) {
-    list($name, $tel, $indificator) = explode(' ', $line, 3) + [NULL, NULL, NULL];
-    return createContactBlock($name, $tel, $indificator);
-}, $contactBlocks);
-
-echo implode("\n", $contactBlocks);
