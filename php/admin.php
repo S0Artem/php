@@ -22,12 +22,18 @@ $file = 'data.tsv';
 $homepage = file_get_contents($file);
 $lines = explode("\r\n", trim($homepage));
 
-function createContactBlock($name, $tel, $indificator) {
+function createContactBlock($name, $tel, $indificator, $statys) {
     if ($name === null || $tel === null || $indificator === null || trim($name) === '' || trim($tel) === '' || trim($indificator) === '') {
         return 'неправильная запись<br><br>';
     } else {
+        if ($statys == 0){
+            $statysText = "Не расмотренно";
+        }
+        elseif ($statys == 1){
+            $statysText = "Рассмотренно";
+        }
         return 
-            '<form action="../php/del.php" method="post" style="margin: 0">' . 
+            '<form action="../php/del.php" method="post" style="margin: 0; display: inline;">' . 
             '<input type="hidden" name="indificator" value="' . htmlspecialchars($indificator) . '">' . 
             htmlspecialchars($indificator) . 
             " " . 
@@ -35,7 +41,14 @@ function createContactBlock($name, $tel, $indificator) {
             " " . 
             htmlspecialchars($tel) .
             " " . 
-            ' <button type="submit" name="submit_button" style="display: inline;">Нажмите меня</button></form><br>';
+            htmlspecialchars($statysText)  . 
+            " " .
+            ' <button type="submit" name="submit_button" style="display: inline;">Удалить</button></form>' . 
+            " " . 
+            '<form action="../php/statys.php" method="post" style="margin: 0; display: inline;">' . 
+            '<input type="hidden" name="indificator" value="' . htmlspecialchars($indificator) . '">' . 
+            '<button type="submit" name="submit_button" style="display: inline;">Поменять статус</button>' . 
+            '</form><br>';
     }
 }
 
@@ -44,8 +57,11 @@ $contactBlocks = array_filter($lines, function($line) {
 });
 
 $contactBlocks = array_map(function($line) {
-    list($name, $tel, $indificator) = explode(' ', $line, 3) + [NULL, NULL, NULL];
-    return createContactBlock($name, $tel, $indificator);
+    list($name, $tel, $indificator, $statys) = explode(' ', $line, 4) + [NULL, NULL, NULL, NULL];
+    return createContactBlock($name, $tel, $indificator, $statys);
 }, $contactBlocks);
 
 echo implode("\n", $contactBlocks);
+
+
+

@@ -9,7 +9,7 @@ $indificatorToDelete = $_POST['indificator'];
 
 function del($lines, $indificatorToDelete) {
     return array_filter($lines, function($line) use ($indificatorToDelete) {
-        list($name, $tel, $indificator) = explode(' ', $line, 3) + [NULL, NULL, NULL];
+        list($name, $tel, $indificator, $statys) = explode(' ', $line, 4) + [NULL, NULL, NULL, NULL];
         return $indificator !== $indificatorToDelete;
     });
 }
@@ -17,6 +17,10 @@ function del($lines, $indificatorToDelete) {
 $filteredLines = del($lines, $indificatorToDelete);
 
 file_put_contents($file, implode("\r\n", $filteredLines));
+
+
+
+
 
 // Перенаправляем обратно в admin.php, сессия сохранит данные
 header('Location: ../php/admin.php');  // Обновите путь к вашей главной странице
