@@ -27,10 +27,10 @@ function createContactBlock($name, $tel, $indificator, $statys) {
         return 'неправильная запись<br><br>';
     } else {
         if ($statys == 0){
-            $statysText = "Не расмотренно";
+            $statys = "Не расмотренно";
         }
         elseif ($statys == 1){
-            $statysText = "Рассмотренно";
+            $statys = "Рассмотренно";
         }
         return 
             '<form action="../php/del.php" method="post" style="margin: 0; display: inline;">' . 
@@ -41,7 +41,7 @@ function createContactBlock($name, $tel, $indificator, $statys) {
             " " . 
             htmlspecialchars($tel) .
             " " . 
-            htmlspecialchars($statysText)  . 
+            htmlspecialchars($statys)  . 
             " " .
             ' <button type="submit" name="submit_button" style="display: inline;">Удалить</button></form>' . 
             " " . 
