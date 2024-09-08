@@ -14,13 +14,13 @@ class Request
         $this->id = $this->genId();
     }
 
-    function create()
+    public function create(): void
     {
-        $newLine = $this->name . "\t" . $this->phone . "\t" . $this->id . "\t" . $this->status . PHP_EOL;
+        $newLine = $this->name . "\t" . $this->phone . "\t" . $this->id . "\t" . $this->status . "\n";
         file_put_contents('data.tsv', $newLine, FILE_APPEND);
     }
 
-    private function genId()
+    private function genId(): int
     {
         $idFileName = 'id.tsv';
         assureFileExistance($idFileName);

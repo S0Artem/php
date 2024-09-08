@@ -20,7 +20,7 @@ if (isset($_POST['password'])) {
 echo "Добро пожаловать в админку!<br>";
 $file = 'data.tsv';
 $homepage = file_get_contents($file);
-$lines = explode("\r\n", trim($homepage));
+$lines = explode("\n", trim($homepage));
 
 function createContactBlock($name, $tel, $indificator, $statys) {
     if ($name === null || $tel === null || $indificator === null || trim($name) === '' || trim($tel) === '' || trim($indificator) === '') {
@@ -45,8 +45,8 @@ function createContactBlock($name, $tel, $indificator, $statys) {
             " " .
             ' <button type="submit" name="submit_button" style="display: inline;">Удалить</button></form>' . 
             " " . 
-            '<form action="../php/statys.php" method="post" style="margin: 0; display: inline;">' . 
-            '<input type="hidden" name="indificator" value="' . htmlspecialchars($indificator) . '">' . 
+            '<form action="../php/status.php" method="post" style="margin: 0; display: inline;">' . 
+            '<input type="hidden" name="id" value="' . htmlspecialchars($indificator) . '">' . 
             '<button type="submit" name="submit_button" style="display: inline;">Поменять статус</button>' . 
             '</form><br>';
     }
@@ -57,7 +57,7 @@ $contactBlocks = array_filter($lines, function($line) {
 });
 
 $contactBlocks = array_map(function($line) {
-    list($name, $tel, $indificator, $statys) = explode(' ', $line, 4) + [NULL, NULL, NULL, NULL];
+    list($name, $tel, $indificator, $statys) = explode("\t", $line, 4) + [NULL, NULL, NULL, NULL];
     return createContactBlock($name, $tel, $indificator, $statys);
 }, $contactBlocks);
 
