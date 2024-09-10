@@ -1,6 +1,5 @@
 <?php
 include_once "common.php";
-$filename = 'data.tsv';
 
 $id = $_POST['id'];
 
